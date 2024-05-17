@@ -1,15 +1,15 @@
 blueprint:
-  name: MintBlueJelly - Activate Scenes on Motion
+  name: MintBlueJelly - Activate Scenes on Motion (cys-v1)
   description: |
     ## Description
     This blueprint uses motion sensors to activate different scenes during day or night.
 
     ## Current version
-    v1.0.2
+    cys-v1.0.2
 
     ## Updates
-    - This blueprint is designed to be updatable within major versions (e.g. `v1.x.x`).
-    - If a breaking change is unavoidable, it will trigger a new major version (e.g. `2.0.0`).
+    - This blueprint is designed to be updatable within major versions (e.g. `xxx-v1.x.x`).
+    - If a breaking change is unavoidable, it will trigger a new major version (e.g. `xxx-v2.0.0`).
     - Each major version will be published as a new blueprint in my GitHub repository (e.g. `xxx-v2.yaml`).
     - Minor version updates will be patched into the existing blueprint. They can be safely pulled into your Home Assistant instance by re-importing the blueprint via its context menu.
 

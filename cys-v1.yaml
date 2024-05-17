@@ -4,7 +4,7 @@ blueprint:
   domain: automation
   input:
     triggers:
-      name: Motion Sensors
+      name: Triggers
       description: "Select one or more motion sensors to trigger the automation."
       selector:
         entity:

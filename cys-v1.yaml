@@ -47,7 +47,7 @@ blueprint:
           min: 0.1
           max: 10
           unit_of_measurement: seconds
-  source_url: "https://github.com/MintBlueJelly/ha-blueprints/raw/main/cys-v1.yaml"
+  source_url: "https://raw.githubusercontent.com/MintBlueJelly/ha-blueprints/main/cys-v1.yaml"
 
 trigger:
   # Trigger when motion is detected

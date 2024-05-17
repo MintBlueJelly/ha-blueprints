@@ -1,0 +1,101 @@
+blueprint:
+  name: mintBlueJelly - Activate Scenes on Motion v1.0.0
+  description: "Use motion sensors to activate different scenes during day and night."
+  domain: automation
+  input:
+    triggers:
+      name: Motion Sensors
+      description: "Select one or more motion sensors to trigger the automation."
+      selector:
+        entity:
+          multiple: true
+          domain: binary_sensor
+          device_class: motion
+    day_scene:
+      name: Day Scene
+      description: "Select the scene to be activated when the sun is above the horizon."
+      selector:
+        entity:
+          domain: scene
+    night_scene:
+      name: Night Scene
+      description: "Select the scene to be activated when the sun is below the horizon."
+      selector:
+        entity:
+          domain: scene
+    off_scene:
+      name: Off Scene
+      description: "Select the scene to be activated when motion is no longer detected."
+      selector:
+        entity:
+          domain: scene
+    timeout:
+      name: Timeout
+      description: "Specify the delay before the off scene is activated."
+      default: 10
+      selector:
+        number:
+          min: 1
+          max: 300
+          unit_of_measurement: seconds
+    cross_fade:
+      name: Cross-Fade
+      description: "Specify the time to cross-fade from one scene to the next."
+      default: 0.5
+      selector:
+        number:
+          min: 0.1
+          max: 10
+          unit_of_measurement: seconds
+
+trigger:
+  # Trigger when motion is detected
+  - platform: state
+    entity_id: !input triggers
+    to: "on"
+
+condition: []
+
+action:
+  # Choose action based on the sun's elevation
+  - choose:
+      # Sun is below the horizon
+      - conditions:
+          - condition: sun
+            before: sunrise
+            after: sunset
+        sequence:
+          # Activate night scene
+          - service: scene.turn_on
+            data:
+              transition: !input cross_fade
+            target:
+              entity_id: !input night_scene
+      # Sun is above the horizon
+      - conditions:
+          - condition: sun
+            after: sunrise
+            before: sunset
+        sequence:
+          # Activate day scene
+          - service: scene.turn_on
+            data:
+              transition: !input cross_fade
+            target:
+              entity_id: !input day_scene
+  # Await timeout once motion is no longer detected
+  - wait_for_trigger:
+      - platform: state
+        entity_id: !input triggers
+        to: "off"
+        for:
+          seconds: !input timeout
+  # Activate off scene
+  - service: scene.turn_on
+    data:
+      transition: !input cross_fade
+    target:
+      entity_id: !input off_scene
+
+# Restart automation when trigger fires again
+mode: restart

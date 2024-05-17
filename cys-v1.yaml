@@ -1,5 +1,5 @@
 blueprint:
-  name: mintBlueJelly - Activate Scenes on Motion v1.0.0
+  name: MintBlueJelly - Activate Scenes on Motion v1.0.0
   description: "Use motion sensors to activate different scenes during day and night."
   domain: automation
   input:

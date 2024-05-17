@@ -1,5 +1,5 @@
 blueprint:
-  name: MintBlueJelly - Activate Scenes on Motion v1.0.0
+  name: MintBlueJelly - Activate Scenes on Motion v1.0.1
   description: "Use motion sensors to activate different scenes during day and night."
   domain: automation
   input:
@@ -17,12 +17,30 @@ blueprint:
       selector:
         entity:
           domain: scene
+    day_offset:
+      name: Day Offset
+      description: "Specify the seconds to shift the start of the day back or forth."
+      default: 0
+      selector:
+        number:
+          min: -3600
+          max: 3600
+          unit_of_measurement: seconds
     night_scene:
       name: Night Scene
       description: "Select the scene to be activated when the sun is below the horizon."
       selector:
         entity:
           domain: scene
+    night_offset:
+      name: Night Offset
+      description: "Specify the seconds to shift the start of the night back or forth."
+      default: 0
+      selector:
+        number:
+          min: -3600
+          max: 3600
+          unit_of_measurement: seconds
     off_scene:
       name: Off Scene
       description: "Select the scene to be activated when motion is no longer detected."
@@ -61,8 +79,10 @@ action:
       # Sun is below the horizon
       - conditions:
           - condition: sun
-            before: sunrise
             after: sunset
+            after_offset: !input night_offset
+            before: sunrise
+            before_offset: !input day_offset
         sequence:
           # Activate night scene
           - service: scene.turn_on
@@ -74,7 +94,9 @@ action:
       - conditions:
           - condition: sun
             after: sunrise
+            after_offset: !input day_offset
             before: sunset
+            before_offset: !input night_offset
         sequence:
           # Activate day scene
           - service: scene.turn_on

@@ -5,7 +5,7 @@ blueprint:
   input:
     triggers:
       name: Triggers
-      description: "Select one or more motion sensors to trigger the automation."
+      description: "One or more motion sensors to trigger the automation"
       selector:
         entity:
           multiple: true
@@ -13,13 +13,13 @@ blueprint:
           device_class: motion
     day_scene:
       name: Day Scene
-      description: "Select the scene to be activated when the sun is above the horizon."
+      description: "Will be activated when the sun is above the horizon"
       selector:
         entity:
           domain: scene
     day_offset:
       name: Day Offset
-      description: "Specify the seconds to shift the start of the day back or forth."
+      description: "Shifts the start of the day back or forth"
       default: 0
       selector:
         number:
@@ -28,13 +28,13 @@ blueprint:
           unit_of_measurement: seconds
     night_scene:
       name: Night Scene
-      description: "Select the scene to be activated when the sun is below the horizon."
+      description: "Will be activated when the sun is below the horizon"
       selector:
         entity:
           domain: scene
     night_offset:
       name: Night Offset
-      description: "Specify the seconds to shift the start of the night back or forth."
+      description: "Shifts the start of the night back or forth"
       default: 0
       selector:
         number:
@@ -43,13 +43,13 @@ blueprint:
           unit_of_measurement: seconds
     off_scene:
       name: Off Scene
-      description: "Select the scene to be activated when motion is no longer detected."
+      description: "Will be activated when motion is no longer detected"
       selector:
         entity:
           domain: scene
     timeout:
       name: Timeout
-      description: "Specify the delay before the off scene is activated."
+      description: "Delays off scene after motion is no longer detected"
       default: 10
       selector:
         number:
@@ -58,7 +58,7 @@ blueprint:
           unit_of_measurement: seconds
     cross_fade:
       name: Cross-Fade
-      description: "Specify the time to cross-fade from one scene to the next."
+      description: "Cross-fade duration when scenes change"
       default: 0.5
       selector:
         number:

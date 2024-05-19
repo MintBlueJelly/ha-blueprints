@@ -21,176 +21,160 @@ blueprint:
     # Triggers
     triggers:
       name: Hue Dimmer Switches
-      description: description
+      description: "One or more Hue Dimmer Switches to trigger the automation"
       selector:
         device:
           integration: zha
           model: RWL021
           multiple: true
 
-    # Short Release
-    short_release_on:
-      name: Button 1 Released
-      description: Action to run when button is released
-      default: []
+    # Multiple Presses
+    multiple_presses_enabled:
+      name: Enable Multiple-Press Actions
+      description: Introduces a timeout after a button release to enable double/triple/quadruple-press actions
+      default: false
       selector:
-        action: {}
-    short_release_up:
-      name: Button 2 Released
-      description: Action to run when button is released
-      default: []
-      selector:
-        action: {}
-    short_release_down:
-      name: Button 3 Released
-      description: Action to run when button is released
-      default: []
-      selector:
-        action: {}
-    short_release_off:
-      name: Button 4 Released
-      description: Action to run when button is released
-      default: []
-      selector:
-        action: {}
-    short_release_delay:
-      name: Wait for Addional Presses after Release
-      description: Delay actions in case a double/triple/quadruple press is being performed
+        boolean: {}
+    multiple_presses_timeout:
+      name: Timeout for Multiple-Press Actions
+      description: Waits for a subsequent button press within this interval before executing the defined release action
       default: 0.4
       selector:
         number:
-          min: 0
-          max: 2
+          min: 0.3
+          max: 1.0
           unit_of_measurement: seconds
           mode: slider
           step: 0.1
 
+    # Short Release
+    short_release_on:
+      name: Released Button "ON"
+      default: []
+      selector:
+        action: {}
+    short_release_up:
+      name: Released Button "DIM UP"
+      default: []
+      selector:
+        action: {}
+    short_release_down:
+      name: Released Button "DIM DOWN"
+      default: []
+      selector:
+        action: {}
+    short_release_off:
+      name: Released Button "OFF"
+      default: []
+      selector:
+        action: {}
+
     # Hold
     hold_on:
-      name: Button 1 Held
-      description: Action to run when button is held
+      name: Holding Button "ON"
       default: []
       selector:
         action: {}
     hold_up:
-      name: Button 2 Held
-      description: Action to run when button is held
+      name: Holding Button "DIM UP"
       default: []
       selector:
         action: {}
     hold_down:
-      name: Button 3 Held
-      description: Action to run when button is held
+      name: Holding Button "DIM DOWN"
       default: []
       selector:
         action: {}
     hold_off:
-      name: Button 4 Held
-      description: Action to run when button is held
+      name: Holding Button "OFF"
       default: []
       selector:
         action: {}
 
     # Long Release
     long_release_on:
-      name: Button 1 Released after Hold
-      description: Action to run when button is released after being held
+      name: Released Button "ON" after Holding
       default: []
       selector:
         action: {}
     long_release_up:
-      name: Button 2 Released after Hold
-      description: Action to run when button is released after being held
+      name: Released Button "DIM UP" after Holding
       default: []
       selector:
         action: {}
     long_release_down:
-      name: Button 3 Released after Hold
-      description: Action to run when button is released after being held
+      name: Released Button "DIM DOWN" after Holding
       default: []
       selector:
         action: {}
     long_release_off:
-      name: Button 4 Released after Hold
-      description: Action to run when button is released after being held
+      name: Released Button "OFF" after Holding
       default: []
       selector:
         action: {}
 
     # Double Press
     double_on:
-      name: Button 1 Double-Pressed
-      description: Action to run when button is pressed twice in a row
+      name: Double-Pressed Button "ON"
       default: []
       selector:
         action: {}
     double_up:
-      name: Button 2 Double-Pressed
-      description: Action to run when button is pressed twice in a row
+      name: Double-Pressed Button "DIM UP"
       default: []
       selector:
         action: {}
     double_down:
-      name: Button 3 Double-Pressed
-      description: Action to run when button is pressed twice in a row
+      name: Double-Pressed Button "DIM DOWN"
       default: []
       selector:
         action: {}
     double_off:
-      name: Button 4 Double-Pressed
-      description: Action to run when button is pressed twice in a row
+      name: Double-Pressed Button "OFF"
       default: []
       selector:
         action: {}
 
     # Triple Press
     triple_on:
-      name: Button 1 Triple-Pressed
-      description: Action to run when button is pressed thrice in a row
+      name: Triple-Pressed Button "ON"
       default: []
       selector:
         action: {}
     triple_up:
-      name: Button 2 Triple-Pressed
-      description: Action to run when button is pressed thrice in a row
+      name: Triple-Pressed Button "DIM UP"
       default: []
       selector:
         action: {}
     triple_down:
-      name: Button 3 Triple-Pressed
-      description: Action to run when button is pressed thrice in a row
+      name: Triple-Pressed Button "DIM DOWN"
       default: []
       selector:
         action: {}
     triple_off:
-      name: Button 4 Triple-Pressed
-      description: Action to run when button is pressed thrice in a row
+      name: Triple-Pressed Button "OFF"
       default: []
       selector:
         action: {}
 
     # Quadruple Press
     quadruple_on:
-      name: Button 1 Quadruple-Pressed
-      description: Action to run when button is pressed four times in a row
+      name: Quadruple-Pressed Button "ON"
       default: []
       selector:
         action: {}
     quadruple_up:
-      name: Button 2 Quadruple-Pressed
-      description: Action to run when button is pressed four times in a row
+      name: Quadruple-Pressed Button "DIM UP"
       default: []
       selector:
         action: {}
     quadruple_down:
-      name: Button 3 Quadruple-Pressed
-      description: Action to run when button is pressed four times in a row
+      name: Quadruple-Pressed Button "DIM DOWN"
       default: []
       selector:
         action: {}
     quadruple_off:
-      name: Button 4 Quadruple-Pressed
-      description: Action to run when button is pressed four times in a row
+      name: Quadruple-Pressed Button "OFF"
       default: []
       selector:
         action: {}
@@ -241,6 +225,8 @@ trigger:
 
 variables:
   triggers: !input triggers
+  multiple_presses_enabled: !input multiple_presses_enabled
+  multiple_presses_timeout: !input multiple_presses_timeout
 
 condition:
   # Proceed only if the event belongs one of the specified devices
@@ -255,7 +241,12 @@ action:
           - condition: template
             value_template: "{{ trigger.event.data.args.press_type == 'short_release' }}"
         sequence:
-          - delay: !input short_release_delay
+          - delay: >
+              {% if (multiple_presses_enabled | bool) %}
+                {{ multiple_presses_timeout }}
+              {% else %}
+                0
+              {% endif %}
           - choose:
               - conditions:
                   - condition: template

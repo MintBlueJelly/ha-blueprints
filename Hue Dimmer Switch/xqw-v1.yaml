@@ -1,12 +1,12 @@
 blueprint:
   author: MintBlueJelly (Christian Fürst)
-  name: MintBlueJelly - Hue Dimmer Switch (xqw-v1)
+  name: MintBlueJelly - Hue Dimmer Switch via ZHA (xqw-v1)
   description: |
     ## Description
     This blueprint handles button presses from Hue Dimmer Switches integrated via ZHA (model RWL021).
 
     ## Current version
-    xqw-v1.0.1
+    xqw-v1.0.2
 
     ## Updates
     - This blueprint is designed to be updatable within major versions (e.g. `xxx-v1.x.x`).

@@ -1,0 +1,392 @@
+blueprint:
+  name: MintBlueJelly - Hue Dimmer Switch (xqw-v1)
+  description: |
+    ## Description
+    This blueprint handles button presses from Hue Dimmer Switches integrated via ZHA (model RWL021).
+
+    ## Current version
+    xqw-v1.0.0
+
+    ## Updates
+    - This blueprint is designed to be updatable within major versions (e.g. `xxx-v1.x.x`).
+    - If a breaking change is unavoidable, it will trigger a new major version (e.g. `xxx-v2.0.0`).
+    - Each major version will be published as a new blueprint in my GitHub repository (e.g. `xxx-v2.yaml`).
+    - Minor version updates will be patched into the existing blueprint. They can be safely pulled into your Home Assistant instance by re-importing the blueprint via its context menu.
+
+    See my GitHub repository for more blueprints:
+    https://github.com/MintBlueJelly/ha-blueprints
+  domain: automation
+  input:
+    # Triggers
+    triggers:
+      name: Hue Dimmer Switches
+      description: description
+      selector:
+        device:
+          integration: zha
+          model: RWL021
+          multiple: true
+
+    # Short Release
+    short_release_on:
+      name: Button 1 Released
+      description: Action to run when button is released
+      default: []
+      selector:
+        action: {}
+    short_release_up:
+      name: Button 2 Released
+      description: Action to run when button is released
+      default: []
+      selector:
+        action: {}
+    short_release_down:
+      name: Button 3 Released
+      description: Action to run when button is released
+      default: []
+      selector:
+        action: {}
+    short_release_off:
+      name: Button 4 Released
+      description: Action to run when button is released
+      default: []
+      selector:
+        action: {}
+    short_release_delay:
+      name: Wait for Addional Presses after Release
+      description: Delay actions in case a double/triple/quadruple press is being performed
+      default: 0.4
+      selector:
+        number:
+          min: 0
+          max: 2
+          unit_of_measurement: seconds
+          mode: slider
+          step: 0.1
+
+    # Hold
+    hold_on:
+      name: Button 1 Held
+      description: Action to run when button is held
+      default: []
+      selector:
+        action: {}
+    hold_up:
+      name: Button 2 Held
+      description: Action to run when button is held
+      default: []
+      selector:
+        action: {}
+    hold_down:
+      name: Button 3 Held
+      description: Action to run when button is held
+      default: []
+      selector:
+        action: {}
+    hold_off:
+      name: Button 4 Held
+      description: Action to run when button is held
+      default: []
+      selector:
+        action: {}
+
+    # Long Release
+    long_release_on:
+      name: Button 1 Released after Hold
+      description: Action to run when button is released after being held
+      default: []
+      selector:
+        action: {}
+    long_release_up:
+      name: Button 2 Released after Hold
+      description: Action to run when button is released after being held
+      default: []
+      selector:
+        action: {}
+    long_release_down:
+      name: Button 3 Released after Hold
+      description: Action to run when button is released after being held
+      default: []
+      selector:
+        action: {}
+    long_release_off:
+      name: Button 4 Released after Hold
+      description: Action to run when button is released after being held
+      default: []
+      selector:
+        action: {}
+
+    # Double Press
+    double_on:
+      name: Button 1 Double-Pressed
+      description: Action to run when button is pressed twice in a row
+      default: []
+      selector:
+        action: {}
+    double_up:
+      name: Button 2 Double-Pressed
+      description: Action to run when button is pressed twice in a row
+      default: []
+      selector:
+        action: {}
+    double_down:
+      name: Button 3 Double-Pressed
+      description: Action to run when button is pressed twice in a row
+      default: []
+      selector:
+        action: {}
+    double_off:
+      name: Button 4 Double-Pressed
+      description: Action to run when button is pressed twice in a row
+      default: []
+      selector:
+        action: {}
+
+    # Triple Press
+    triple_on:
+      name: Button 1 Triple-Pressed
+      description: Action to run when button is pressed thrice in a row
+      default: []
+      selector:
+        action: {}
+    triple_up:
+      name: Button 2 Triple-Pressed
+      description: Action to run when button is pressed thrice in a row
+      default: []
+      selector:
+        action: {}
+    triple_down:
+      name: Button 3 Triple-Pressed
+      description: Action to run when button is pressed thrice in a row
+      default: []
+      selector:
+        action: {}
+    triple_off:
+      name: Button 4 Triple-Pressed
+      description: Action to run when button is pressed thrice in a row
+      default: []
+      selector:
+        action: {}
+
+    # Quadruple Press
+    quadruple_on:
+      name: Button 1 Quadruple-Pressed
+      description: Action to run when button is pressed four times in a row
+      default: []
+      selector:
+        action: {}
+    quadruple_up:
+      name: Button 2 Quadruple-Pressed
+      description: Action to run when button is pressed four times in a row
+      default: []
+      selector:
+        action: {}
+    quadruple_down:
+      name: Button 3 Quadruple-Pressed
+      description: Action to run when button is pressed four times in a row
+      default: []
+      selector:
+        action: {}
+    quadruple_off:
+      name: Button 4 Quadruple-Pressed
+      description: Action to run when button is pressed four times in a row
+      default: []
+      selector:
+        action: {}
+
+  source_url: "https://raw.githubusercontent.com/MintBlueJelly/ha-blueprints/main/Hue%20Dimmer%20Switch/xqw-v1.yaml"
+
+trigger:
+  # Short Release
+  - platform: event
+    event_type: zha_event
+    event_data:
+      args:
+        press_type: "short_release"
+
+    # Hold
+  - platform: event
+    event_type: zha_event
+    event_data:
+      args:
+        press_type: "hold"
+
+    # Long Release
+  - platform: event
+    event_type: zha_event
+    event_data:
+      args:
+        press_type: "long_release"
+
+    # Double Press
+  - platform: event
+    event_type: zha_event
+    event_data:
+      args:
+        press_type: "double_press"
+
+    # Triple Press
+  - platform: event
+    event_type: zha_event
+    event_data:
+      args:
+        press_type: "triple_press"
+
+    # Quadruple Press
+  - platform: event
+    event_type: zha_event
+    event_data:
+      args:
+        press_type: "quadruple_press"
+
+variables:
+  triggers: !input triggers
+
+condition:
+  # Proceed only if the event belongs one of the specified devices
+  - condition: template
+    value_template: >
+      {{ trigger.event.data.device_id in triggers }}
+
+action:
+  - choose:
+      # Short Release
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.args.press_type == 'short_release' }}"
+        sequence:
+          - delay: !input short_release_delay
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'on' }}"
+                sequence: !input short_release_on
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'up' }}"
+                sequence: !input short_release_up
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'down' }}"
+                sequence: !input short_release_down
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'off' }}"
+                sequence: !input short_release_off
+
+      # Hold
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.args.press_type == 'hold' }}"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'on' }}"
+                sequence: !input hold_on
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'up' }}"
+                sequence: !input hold_up
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'down' }}"
+                sequence: !input hold_down
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'off' }}"
+                sequence: !input hold_off
+
+      # Long Release
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.args.press_type == 'long_release' }}"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'on' }}"
+                sequence: !input long_release_on
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'up' }}"
+                sequence: !input long_release_up
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'down' }}"
+                sequence: !input long_release_down
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'off' }}"
+                sequence: !input long_release_off
+
+      # Double Press
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.args.press_type == 'double_press' }}"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'on' }}"
+                sequence: !input double_on
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'up' }}"
+                sequence: !input double_up
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'down' }}"
+                sequence: !input double_down
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'off' }}"
+                sequence: !input double_off
+
+      # Triple Press
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.args.press_type == 'triple_press' }}"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'on' }}"
+                sequence: !input triple_on
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'up' }}"
+                sequence: !input triple_up
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'down' }}"
+                sequence: !input triple_down
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'off' }}"
+                sequence: !input triple_off
+
+      # Quadruple Press
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.args.press_type == 'quadruple_press' }}"
+        sequence:
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'on' }}"
+                sequence: !input quadruple_on
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'up' }}"
+                sequence: !input quadruple_up
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'down' }}"
+                sequence: !input quadruple_down
+              - conditions:
+                  - condition: template
+                    value_template: "{{ trigger.event.data.args.button == 'off' }}"
+                sequence: !input quadruple_off
+
+mode: restart

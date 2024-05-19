@@ -1,4 +1,5 @@
 blueprint:
+  author: MintBlueJelly (Christian Fürst)
   name: MintBlueJelly - Hue Dimmer Switch (xqw-v1)
   description: |
     ## Description
@@ -193,7 +194,6 @@ blueprint:
       default: []
       selector:
         action: {}
-
   source_url: "https://raw.githubusercontent.com/MintBlueJelly/ha-blueprints/main/Hue%20Dimmer%20Switch/xqw-v1.yaml"
 
 trigger:
@@ -389,4 +389,5 @@ action:
                     value_template: "{{ trigger.event.data.args.button == 'off' }}"
                 sequence: !input quadruple_off
 
+# Restart automation when trigger fires again
 mode: restart

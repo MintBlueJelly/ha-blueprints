@@ -6,7 +6,7 @@ blueprint:
     This blueprint handles button presses from Hue Dimmer Switches integrated via ZHA (model RWL021).
 
     ## Current version
-    xqw-v1.0.0
+    xqw-v1.0.1
 
     ## Updates
     - This blueprint is designed to be updatable within major versions (e.g. `xxx-v1.x.x`).

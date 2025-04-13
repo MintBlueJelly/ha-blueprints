@@ -6,7 +6,7 @@ blueprint:
     This blueprint uses motion sensors to activate different scenes during day or night.
 
     ## Current version
-    cys-v1.0.2
+    cys-v1.0.3
 
     ## Updates
     - This blueprint is designed to be updatable within major versions (e.g. `xxx-v1.x.x`).
@@ -26,6 +26,16 @@ blueprint:
           multiple: true
           domain: binary_sensor
           device_class: motion
+    suppress_trigger:
+      name: Suppress Trigger
+      description: "Suppresses the trigger if a group, light, or switch is already on"
+      selector:
+        entity:
+          multiple: false
+          domain:
+            - group
+            - light
+            - switch
     day_scene:
       name: Day Scene
       description: "Will be activated when the sun is above the horizon"
@@ -87,6 +97,12 @@ trigger:
   - platform: state
     entity_id: !input triggers
     to: "on"
+
+conditions:
+  # Suppress trigger if specified entity is on
+  - condition: state
+    entity_id: !input suppress_trigger
+    state: "off"
 
 action:
   # Choose action based on the sun's elevation
